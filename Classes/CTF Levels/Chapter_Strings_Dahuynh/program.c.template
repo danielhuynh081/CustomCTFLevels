@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#define USERDEF "AAAAA"
+#define USERDEF "AAAAAA"
 
 char msg[] = \
 "In this level, you will be forced to use dynamic analysis to find the\n\
@@ -14,19 +14,33 @@ void print_msg() {
 }
 
 int main(int argc, char* argv[]) {
-    char buff[20];
+    char buff[100];
     char pass[20];
     char c;
     int i;
 
     print_msg();
 
-    for (i=0; i < 20; i++)
+    // Create the password
+    for (i = 0; i < 20; i++)
         pass[i] = 0;
 
     strncpy(pass, USERDEF, strlen(USERDEF));
-
     c = pass[0];
     pass[0] = pass[1];
     pass[1] = c;
+
+    // Prompt for input
+    printf("Enter password: ");
+    scanf("%99s", buff);
+
+    // Compare input to generated password
+    if (strcmp(buff, pass) == 0) {
+        printf("Correct!\n");
+    } else {
+        printf("Wrong.\n");
+    }
+
+    return 0;
 }
+
